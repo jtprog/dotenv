@@ -1,10 +1,23 @@
-from __future__ import with_statement
 import os
 from tempfile import mkstemp
 
 from dotenv import set_variable, Dotenv, get_variable, get_variables
 
-from utils import CompatibilityTestCase
+from unittest import TestCase
+
+try:
+    # TestCase.assertIsInstance()
+    CompatibilityTestCase = TestCase
+except AttributeError:
+    class CompatibilityTestCase(TestCase):
+        def assertIsInstance(self, obj, cls, **kwargs):
+            assert obj, cls
+
+        def assertNotIn(self, key, coll, **kwargs):
+            assert key not in coll
+
+        def assertIn(self, key, coll, **kwargs):
+            assert key in coll
 
 
 class DotenvTest(CompatibilityTestCase):
@@ -15,48 +28,48 @@ class DotenvTest(CompatibilityTestCase):
             file.write("Bar=foo'\n")
             file.write("baz=1234'\n")
             file.write("url='https://test.oi/do?it=fast'\n")
-        self.dotenv = Dotenv(self.file_path)
+        self.dtenv = Dotenv(self.file_path)
 
     def tearDown(self):
         os.unlink(self.file_path)
 
     def test_create(self):
-        self.assertIsInstance(self.dotenv, Dotenv)
-        self.assertIsInstance(self.dotenv, dict)
+        self.assertIsInstance(self.dtenv, Dotenv)
+        self.assertIsInstance(self.dtenv, dict)
 
     def test_get_keys(self):
-        expected = set(['FOO', 'Bar', 'baz', 'url'])
+        expected = {'FOO', 'Bar', 'baz', 'url'}
 
-        self.assertEqual(expected, set(self.dotenv.keys()))
+        self.assertEqual(expected, set(self.dtenv.keys()))
 
     def test_get_values(self):
-        expected = set(['bar', 'foo', '1234', 'https://test.oi/do?it=fast'])
+        expected = {'bar', 'foo', '1234', 'https://test.oi/do?it=fast'}
 
-        self.assertEqual(expected, set(self.dotenv.values()))
+        self.assertEqual(expected, set(self.dtenv.values()))
 
     def test_set_new_key_value(self):
-        self.dotenv['asd'] = 'qwe'
+        self.dtenv['asd'] = 'qwe'
 
-        newdotenv = Dotenv(self.file_path)
+        newdtenv = Dotenv(self.file_path)
 
-        self.assertIn('asd', newdotenv)
-        self.assertEqual('qwe', newdotenv['asd'])
+        self.assertIn('asd', newdtenv)
+        self.assertEqual('qwe', newdtenv['asd'])
 
     def test_set_existing_key(self):
-        self.dotenv['baz'] = 987
+        self.dtenv['baz'] = 987
 
-        newdotenv = Dotenv(self.file_path)
+        newdtenv = Dotenv(self.file_path)
 
-        self.assertEqual('987', newdotenv['baz'])
+        self.assertEqual('987', newdtenv['baz'])
         with open(self.file_path, 'r') as file:
             self.assertEqual(4, len(file.readlines()))
 
     def test_del_key(self):
-        del self.dotenv['baz']
+        del self.dtenv['baz']
 
-        newdotenv = Dotenv(self.file_path)
+        newdtenv = Dotenv(self.file_path)
 
-        self.assertNotIn('baz', newdotenv)
+        self.assertNotIn('baz', newdtenv)
         with open(self.file_path, 'r') as file:
             self.assertEqual(3, len(file.readlines()))
 
@@ -68,7 +81,7 @@ class FunctionalTest(CompatibilityTestCase):
             file.write("FOO='bar'\n")
             file.write("Bar=foo'\n")
             file.write("baz=1234'\n")
-        self.dotenv = Dotenv(self.file_path)
+        self.dtenv = Dotenv(self.file_path)
 
     def tearDown(self):
         os.unlink(self.file_path)
@@ -76,16 +89,16 @@ class FunctionalTest(CompatibilityTestCase):
     def test_set_new_variable(self):
         set_variable(self.file_path, 'asd', 'qwe')
 
-        dotenv = Dotenv(self.file_path)
-        self.assertIn('asd', dotenv)
-        self.assertEqual('qwe', dotenv['asd'])
+        dtenv = Dotenv(self.file_path)
+        self.assertIn('asd', dtenv)
+        self.assertEqual('qwe', dtenv['asd'])
 
     def test_set_existing_variable(self):
         set_variable(self.file_path, 'baz', '987')
 
-        dotenv = Dotenv(self.file_path)
-        self.assertIn('baz', dotenv)
-        self.assertEqual('987', dotenv['baz'])
+        dtenv = Dotenv(self.file_path)
+        self.assertIn('baz', dtenv)
+        self.assertEqual('987', dtenv['baz'])
 
     def test_get_variable(self):
         result = get_variable(self.file_path, 'baz')
@@ -95,9 +108,9 @@ class FunctionalTest(CompatibilityTestCase):
     def test_get_variables(self):
         result = get_variables(self.file_path)
 
-        dotenv = Dotenv(self.file_path)
+        dtenv = Dotenv(self.file_path)
 
-        self.assertEqual(result, dotenv)
+        self.assertEqual(result, dtenv)
 
 
 class CommentTest(CompatibilityTestCase):
@@ -113,21 +126,21 @@ class CommentTest(CompatibilityTestCase):
             file.write("    # an indented comment\n")
             file.write("cheese='cake'\n")
             file.write("COMMENT='#comment#test' # a value containing a comment\n")
-        self.dotenv = Dotenv(self.file_path)
+        self.dtenv = Dotenv(self.file_path)
 
     def tearDown(self):
         os.unlink(self.file_path)
 
     def test_create(self):
-        self.assertIsInstance(self.dotenv, Dotenv)
-        self.assertIsInstance(self.dotenv, dict)
+        self.assertIsInstance(self.dtenv, Dotenv)
+        self.assertIsInstance(self.dtenv, dict)
 
     def test_get_keys(self):
-        expected = set(['SOMEVAR', 'VAR', 'cheese', 'COMMENT'])
+        expected = {'SOMEVAR', 'VAR', 'cheese', 'COMMENT'}
 
-        self.assertEqual(expected, set(self.dotenv.keys()))
+        self.assertEqual(expected, set(self.dtenv.keys()))
 
     def test_get_values(self):
-        expected = set(['12345', 'giggles', 'cake', '#comment#test'])
+        expected = {'12345', 'giggles', 'cake', '#comment#test'}
 
-        self.assertEqual(expected, set(self.dotenv.values()))
+        self.assertEqual(expected, set(self.dtenv.values()))

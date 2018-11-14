@@ -1,9 +1,6 @@
 # encoding=UTF-8
 
-from __future__ import with_statement
-
-
-__version__ = '0.0.5'
+__version__ = '0.0.6'
 
 
 class Dotenv(dict):
@@ -12,9 +9,9 @@ class Dotenv(dict):
         super(Dotenv, self).__init__(**self.__create_dict())
 
     def __create_dict(self):
-        with open(self.file_path, 'r') as dotenv:
+        with open(self.file_path, 'r') as dtenv:
             variables = {}
-            for line in dotenv.readlines():
+            for line in dtenv.readlines():
                 variables.update(self.__parse_line(line))
             return variables
 
@@ -36,9 +33,9 @@ class Dotenv(dict):
             return {}
 
     def __persist(self):
-        with open(self.file_path, 'w') as dotenv:
+        with open(self.file_path, 'w') as dtenv:
             for key, value in self.items():
-                dotenv.write("%s=%s\n" % (key, value))
+                dtenv.write("%s=%s\n" % (key, value))
 
     def __setitem__(self, key, value):
         super(Dotenv, self).__setitem__(key, value)
@@ -50,13 +47,13 @@ class Dotenv(dict):
 
 
 def set_variable(file_path, key, value):
-    dotenv = Dotenv(file_path)
-    dotenv[key] = value
+    dtenv = Dotenv(file_path)
+    dtenv[key] = value
 
 
 def get_variable(file_path, key):
-    dotenv = Dotenv(file_path)
-    return dotenv[key]
+    dtenv = Dotenv(file_path)
+    return dtenv[key]
 
 
 def get_variables(file_path):
