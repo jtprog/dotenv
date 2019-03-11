@@ -1,11 +1,9 @@
 Python Dot Env Handler
 ======================
 
-Shell Command and Library to write and read `.env` like files.
+Based on [ https://github.com/pedroburon/dotenv ](https://github.com/pedroburon/dotenv)
 
-[![Latest Version](https://pypip.in/version/dotenv/badge.svg)](https://pypi.python.org/pypi/dotenv/)
-[![Build Status](https://travis-ci.org/pedroburon/dotenv.svg?branch=master)](https://travis-ci.org/pedroburon/dotenv)
-[![Coverage Status](https://coveralls.io/repos/pedroburon/dotenv/badge.svg)](https://coveralls.io/r/pedroburon/dotenv)
+Shell Command and Library to write and read `.env` like files.
 
 `.env` files are commonly used with `Procfile`-based apps.
 

@@ -1,17 +1,22 @@
 # encoding=UTF-8
+# Source from https://github.com/pedroburon/dotenv
+"""Module for simple manage environment"""
 
 __version__ = '0.0.6'
 
 
 class Dotenv(dict):
+    """
+    Class Dotenv for manage environment
+    """
     def __init__(self, file_path):
         self.file_path = file_path
         super(Dotenv, self).__init__(**self.__create_dict())
 
     def __create_dict(self):
-        with open(self.file_path, 'r') as dtenv:
+        with open(self.file_path, 'r') as dotenv:
             variables = {}
-            for line in dtenv.readlines():
+            for line in dotenv.readlines():
                 variables.update(self.__parse_line(line))
             return variables
 
@@ -33,9 +38,9 @@ class Dotenv(dict):
             return {}
 
     def __persist(self):
-        with open(self.file_path, 'w') as dtenv:
+        with open(self.file_path, 'w') as dotenv:
             for key, value in self.items():
-                dtenv.write("%s=%s\n" % (key, value))
+                dotenv.write("%s=%s\n" % (key, value))
 
     def __setitem__(self, key, value):
         super(Dotenv, self).__setitem__(key, value)
@@ -47,14 +52,17 @@ class Dotenv(dict):
 
 
 def set_variable(file_path, key, value):
-    dtenv = Dotenv(file_path)
-    dtenv[key] = value
+    """Set environment variable"""
+    dotenv = Dotenv(file_path)
+    dotenv[key] = value
 
 
 def get_variable(file_path, key):
-    dtenv = Dotenv(file_path)
-    return dtenv[key]
+    """Get single environment variable"""
+    dotenv = Dotenv(file_path)
+    return dotenv[key]
 
 
 def get_variables(file_path):
+    """Get all environment variable"""
     return Dotenv(file_path)
