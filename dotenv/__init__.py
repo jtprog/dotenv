@@ -2,7 +2,7 @@
 # Source from https://github.com/pedroburon/dotenv
 """Module for simple manage environment"""
 
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 
 
 class Dotenv(dict):
