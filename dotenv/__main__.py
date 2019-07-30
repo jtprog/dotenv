@@ -1,32 +1,31 @@
-"""Main file for Dotenv module"""
 import argparse
 from dotenv import get_variable, set_variable, get_variables, __version__
 
 
-PARSER = argparse.ArgumentParser()
+parser = argparse.ArgumentParser()
 
-PARSER.add_argument("key", nargs='?')
-PARSER.add_argument("value", nargs='?')
+parser.add_argument("key", nargs='?')
+parser.add_argument("value", nargs='?')
 
-PARSER.add_argument('--file', default='.env')
+parser.add_argument('--file', default='.env')
 
-PARSER.add_argument('--version', action='version', version=__version__)
+parser.add_argument('--version', action='version', version=__version__)
 
-PARSER.add_argument('--shell', action='store_true', default=False)
+parser.add_argument('--shell', action='store_true', default=False)
 
-ARGS = PARSER.parse_args()
+args = parser.parse_args()
 
 
-if ARGS.shell:
+if args.shell:
     PRINT_FORMAT = '%s=%s'
 else:
     PRINT_FORMAT = '%s: %s'
 
-if ARGS.key is None:
-    for key, value in get_variables(ARGS.file).items():
+if args.key is None:
+    for key, value in get_variables(args.file).items():
         print(PRINT_FORMAT % (key, value))
-elif ARGS.value is None:
-    print(PRINT_FORMAT % (ARGS.key, get_variable(ARGS.file, ARGS.key)))
+elif args.value is None:
+    print(PRINT_FORMAT % (args.key, get_variable(args.file, args.key)))
 else:
-    set_variable(ARGS.file, ARGS.key, ARGS.value)
-    print(PRINT_FORMAT % (ARGS.key, ARGS.value))
+    set_variable(args.file, args.key, args.value)
+    print(PRINT_FORMAT % (args.key, args.value))
