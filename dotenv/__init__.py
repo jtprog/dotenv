@@ -5,6 +5,9 @@ __version__ = '0.0.6'
 
 
 class Dotenv(dict):
+    """
+    Class Dotenv for manage environment
+    """
     def __init__(self, file_path):
         self.file_path = file_path
         super(Dotenv, self).__init__(**self.__create_dict())
@@ -48,14 +51,18 @@ class Dotenv(dict):
 
 
 def set_variable(file_path, key, value):
+    """Set environment variable"""
     dotenv = Dotenv(file_path)
     dotenv[key] = value
 
 
 def get_variable(file_path, key):
+    """Get single environment variable"""
     dotenv = Dotenv(file_path)
     return dotenv[key]
 
 
 def get_variables(file_path):
+    """Get all environment variable"""
     return Dotenv(file_path)
+
