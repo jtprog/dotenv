@@ -1,6 +1,9 @@
 Python Dot Env Handler
 ======================
 
+[![Build Status](https://travis-ci.org/jtprog/dotenv.svg?branch=master)](https://travis-ci.org/jtprog/dotenv)
+
+
 Based on [ https://github.com/pedroburon/dotenv ](https://github.com/pedroburon/dotenv)
 
 Shell Command and Library to write and read `.env` like files.
