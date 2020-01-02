@@ -1,7 +1,7 @@
 language: python
 env:
   - TOXENV=py35
-  - TOXENV=py38
+  - TOXENV=py37
 install:
   - travis_retry pip install tox coveralls
 script:
