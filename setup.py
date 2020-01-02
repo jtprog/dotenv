@@ -17,8 +17,13 @@ setup(name='ndenv',
       author_email='mail@jtprog.ru',
       url='https://github.com/jtprog/ndenv',
       test_suite='nose.collector',
-      packages=['ndenv'],
-      setup_requires=['distribute'],
-      scripts=['scripts/ndenv']
+      packages=setuptools.find_packages(),
+      scripts=['scripts/ndenv'],
+      classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+      ],
+      python_requires='>=3.6',
       )
 
