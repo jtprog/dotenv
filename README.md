@@ -1,7 +1,7 @@
 Python Dot Env Handler
 ======================
 
-[![Build Status](https://travis-ci.org/jtprog/dotenv.svg?branch=master)](https://travis-ci.org/jtprog/dotenv)
+[![Build Status](https://travis-ci.org/jtprog/ndenv.svg?branch=master)](https://travis-ci.org/jtprog/ndenv)
 
 
 Based on [ https://github.com/pedroburon/dotenv ](https://github.com/pedroburon/dotenv)
@@ -18,7 +18,7 @@ Usage
 Inspect file
 
 ```shell
-$ dotenv
+$ ndenv
 FOO: bar
 Bar: baz
 ```
@@ -26,31 +26,31 @@ Bar: baz
 Get value for key
 
 ```shell
-$ dotenv FOO
+$ ndenv FOO
 FOO: bar
 ```
 
 Set value for key
 
 ```shell
-$ dotenv FOO baz
+$ ndenv FOO baz
 FOO: baz
 ```
 
 ### As a library
 
 ```python
->>> from dotenv import Dotenv
->>> dotenv = DotEnv('/path/to/.env')
->>> print dotenv
+>>> from ndenv import NDenv
+>>> ndenv = DotEnv('/path/to/.env')
+>>> print ndenv
 {"FOO": "bar", "Bar": "baz"}
->>> dotenv['FOO']
+>>> ndenv['FOO']
 "bar"
->>> dotenv['FOO'] = "baz"
->>> dotenv['FOO']
+>>> ndenv['FOO'] = "baz"
+>>> ndenv['FOO']
 "baz"
->>> del dotenv['FOO']
->>> print dotenv
+>>> del ndenv['FOO']
+>>> print ndenv
 {"Bar": "baz"}
 ```
 
@@ -62,8 +62,8 @@ FOO: baz
 ```python
 # add this to manage.py above `execute_from_command_line(sys.argv)`
 
-from dotenv import Dotenv
-dotenv = Dotenv(os.path.join(os.path.dirname(__file__), '.env'))
-os.environ.update(dotenv)
+from ndenv import NDenv
+ndenv = NDenv(os.path.join(os.path.dirname(__file__), '.env'))
+os.environ.update(ndenv)
 
 ```
