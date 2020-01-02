@@ -1,21 +1,21 @@
 # encoding=UTF-8
-# Source from https://github.com/pedroburon/dotenv
+# Source from https://github.com/jtprog/ndenv
 
 __version__ = '0.0.6'
 
 
-class Dotenv(dict):
+class NDenv(dict):
     """
-    Class Dotenv for manage environment
+    Class NDenv for manage environment
     """
     def __init__(self, file_path):
         self.file_path = file_path
-        super(Dotenv, self).__init__(**self.__create_dict())
+        super(NDenv, self).__init__(**self.__create_dict())
 
     def __create_dict(self):
-        with open(self.file_path, 'r') as dotenv:
+        with open(self.file_path, 'r') as ndenv:
             variables = {}
-            for line in dotenv.readlines():
+            for line in ndenv.readlines():
                 variables.update(self.__parse_line(line))
             return variables
 
@@ -37,32 +37,32 @@ class Dotenv(dict):
             return {}
 
     def __persist(self):
-        with open(self.file_path, 'w') as dotenv:
+        with open(self.file_path, 'w') as ndenv:
             for key, value in self.items():
-                dotenv.write("%s=%s\n" % (key, value))
+                ndenv.write("%s=%s\n" % (key, value))
 
     def __setitem__(self, key, value):
-        super(Dotenv, self).__setitem__(key, value)
+        super(NDenv, self).__setitem__(key, value)
         self.__persist()
 
     def __delitem__(self, key):
-        super(Dotenv, self).__delitem__(key)
+        super(NDenv, self).__delitem__(key)
         self.__persist()
 
 
 def set_variable(file_path, key, value):
     """Set environment variable"""
-    dotenv = Dotenv(file_path)
-    dotenv[key] = value
+    ndenv = NDenv(file_path)
+    ndenv[key] = value
 
 
 def get_variable(file_path, key):
     """Get single environment variable"""
-    dotenv = Dotenv(file_path)
-    return dotenv[key]
+    ndenv = NDenv(file_path)
+    return ndenv[key]
 
 
 def get_variables(file_path):
     """Get all environment variable"""
-    return Dotenv(file_path)
+    return NDenv(file_path)
 

@@ -1,5 +1,5 @@
 import argparse
-from dotenv import get_variable, set_variable, get_variables, __version__
+from ndenv import get_variable, set_variable, get_variables, __version__
 
 
 parser = argparse.ArgumentParser()

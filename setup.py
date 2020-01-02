@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # encoding=UTF-8
-"""Setup module for Dotenv"""
+"""Setup module for NDenv"""
 
 
 from setuptools import setup
@@ -10,15 +10,15 @@ try: # fix nose error
 except ImportError:
     pass
 
-setup(name='dotenv',
-      version=__import__('dotenv').__version__,
+setup(name='ndenv',
+      version=__import__('ndenv').__version__,
       description='Handle .env files',
-      author='Pedro Burón',
-      author_email='pedro@witoi.com',
-      url='https://github.com/jtprog/dotenv',
+      author='Mihael Savin',
+      author_email='mail@jtprog.ru',
+      url='https://github.com/jtprog/ndenv',
       test_suite='nose.collector',
-      packages=['dotenv'],
+      packages=['ndenv'],
       setup_requires=['distribute'],
-      scripts=['scripts/dotenv']
+      scripts=['scripts/ndenv']
       )
 
