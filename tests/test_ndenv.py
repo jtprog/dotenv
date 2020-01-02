@@ -1,10 +1,9 @@
-from __future__ import with_statement
 import os
 from tempfile import mkstemp
 
 from ndenv import set_variable, NDenv, get_variable, get_variables
 
-from .utils import CompatibilityTestCase
+from tests.utils import CompatibilityTestCase
 
 
 class NDenvTest(CompatibilityTestCase):
