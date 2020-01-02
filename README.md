@@ -41,7 +41,7 @@ FOO: baz
 
 ```python
 >>> from ndenv import NDenv
->>> ndenv = DotEnv('/path/to/.env')
+>>> ndenv = NDenv('/path/to/.env')
 >>> print ndenv
 {"FOO": "bar", "Bar": "baz"}
 >>> ndenv['FOO']
