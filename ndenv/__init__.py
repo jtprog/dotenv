@@ -1,7 +1,7 @@
 # encoding=UTF-8
 # Source from https://github.com/jtprog/ndenv
 
-__version__ = '0.0.6'
+__version__ = '0.0.7'
 
 
 class NDenv(dict):

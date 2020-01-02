@@ -4,7 +4,7 @@ from tempfile import mkstemp
 
 from ndenv import set_variable, NDenv, get_variable, get_variables
 
-from utils import CompatibilityTestCase
+from .utils import CompatibilityTestCase
 
 
 class NDenvTest(CompatibilityTestCase):
@@ -25,12 +25,12 @@ class NDenvTest(CompatibilityTestCase):
         self.assertIsInstance(self.ndenv, dict)
 
     def test_get_keys(self):
-        expected = set(['FOO', 'Bar', 'baz', 'url'])
+        expected = {'FOO', 'Bar', 'baz', 'url'}
 
         self.assertEqual(expected, set(self.ndenv.keys()))
 
     def test_get_values(self):
-        expected = set(['bar', 'foo', '1234', 'https://test.oi/do?it=fast'])
+        expected = {'bar', 'foo', '1234', 'https://test.oi/do?it=fast'}
 
         self.assertEqual(expected, set(self.ndenv.values()))
 
@@ -123,11 +123,11 @@ class CommentTest(CompatibilityTestCase):
         self.assertIsInstance(self.ndenv, dict)
 
     def test_get_keys(self):
-        expected = set(['SOMEVAR', 'VAR', 'cheese', 'COMMENT'])
+        expected = {'SOMEVAR', 'VAR', 'cheese', 'COMMENT'}
 
         self.assertEqual(expected, set(self.ndenv.keys()))
 
     def test_get_values(self):
-        expected = set(['12345', 'giggles', 'cake', '#comment#test'])
+        expected = {'12345', 'giggles', 'cake', '#comment#test'}
 
         self.assertEqual(expected, set(self.ndenv.values()))
