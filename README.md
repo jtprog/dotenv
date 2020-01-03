@@ -1,4 +1,4 @@
-Python Dot Env Handler
+Python NDenv Handler
 ======================
 
 [![Build Status](https://travis-ci.org/jtprog/ndenv.svg?branch=master)](https://travis-ci.org/jtprog/ndenv)
